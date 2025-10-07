@@ -1,14 +1,16 @@
 import java.util.*; 
 
-class MyString {
+class string {
     StringBuilder currentString = new StringBuilder("");
 
+	//Function to append the String
     public void append(String gString) {
-		if (currentString.length()>0)
+		if (currentString.length()>0)       //adding spaces between words
 			currentString.append(" ");
         currentString.append(gString);
     }
 
+	//function to count the words in the string
     public int countWords() {
         List<String> temp = new ArrayList<>();
         StringBuilder st = new StringBuilder("");
@@ -17,7 +19,7 @@ class MyString {
             if (ch == ' ') {
                 if (st.length() > 0) {
                     temp.add(st.toString());
-                    st.setLength(0);
+                    st.setLength(0);     //making the string empty
                 }
             } else {
                 st.append(ch);
@@ -28,9 +30,12 @@ class MyString {
         return temp.size();
     }
 
+	//function to reverse the string
     public void reverseString() {
         currentString.reverse();
     }
+	
+	//function to replace the character in the string
 	public void replaceChar(char a,char b){
 		StringBuilder st=new StringBuilder("");
 		for (char ch: currentString.toString().toCharArray()){
@@ -44,11 +49,16 @@ class MyString {
 		currentString=st;
 		System.out.println(currentString);
 	}
+	//function to delete the substring
 	public void stringSlice(int start,int end){
-		
-		currentString.delete(start,end);
-		System.out.println("String:"+currentString);
+		if (start < 0 || end > currentString.length() || start > end) {
+			System.out.println("Invalid range");
+			return;
+		}
+		currentString.delete(start, end);
+		System.out.println("String: " + currentString);
 	}
+	//function to split string in array
 	public void splitString(){
 		List<String> temp = new ArrayList<>();
         StringBuilder st = new StringBuilder("");
@@ -66,6 +76,7 @@ class MyString {
 			temp.add(st.toString());
 		System.out.println(temp);
 	}
+	//function to check the string is pallindrome or not
 	public void isPalindrome() {
 		StringBuilder rev = new StringBuilder(currentString);
 		rev.reverse();
@@ -75,7 +86,11 @@ class MyString {
 			System.out.println("False");
 		}
 	}
+	
+	//function to shift the char of the string
 	public void stringShift(int n){
+		if (n<0)
+			return;
 		int len = currentString.length();
 		if (len == 0) return;
 		n = n % len; 
@@ -83,8 +98,10 @@ class MyString {
 		String shifted = s.substring(len - n) + s.substring(0, len - n);
 		currentString = new StringBuilder(shifted);
 		System.out.println("After shifting: " + currentString);
-}
+		
+	}
 
+	//function to find the repeating char in string
     public void maxRepeat() {
 		String temp = currentString.toString().toLowerCase();
         int[] freq = new int[256];
@@ -95,16 +112,20 @@ class MyString {
         char maxChar = ' ';
         int maxCount = 0;
         for (char c : temp.toCharArray()) {
-            if (freq[c] > maxCount) {
-                maxCount = freq[c];
-                maxChar = c;
-            }
+			if (c!=' '){
+				if (freq[c] > maxCount) {
+					maxCount = freq[c];
+					maxChar = c;
+				}
+			}
         }
 
         System.out.println("Character with maximum occurrence: " + maxChar + " -> " + maxCount);
     }
+	
+	//function to sort the string
 	public void sortString() {
-		char[] sstring = currentString.toString().toCharArray();
+		char[] sstring = currentString.toString().toLowerCase().toCharArray();
 		Arrays.sort(sstring);  
 		currentString = new StringBuilder(new String(sstring));
 		System.out.println("Sorted string: " + currentString);
@@ -112,10 +133,12 @@ class MyString {
     public void display() {
         System.out.println("Current String: " + currentString);
     }
+}
 
+class MyString{
     public static void main(String[] args) {
         Scanner obj = new Scanner(System.in);
-        MyString str = new MyString();
+        string str = new string();
         int option = 0;
 
         System.out.print("Enter the initial string: ");
